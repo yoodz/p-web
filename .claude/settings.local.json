@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm create umi:*)",
+      "Bash(npm install:*)",
+      "Bash(nvm use:*)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm tsc:*)",
+      "Bash(icacls:*)",
+      "Bash(powershell:*)",
+      "Bash(taskkill:*)",
+      "Bash(powershell.exe -Command \"Remove-Item -Recurse -Force ''f:\\\\workspace\\\\p-web\\\\src\\\\.umi'' -ErrorAction SilentlyContinue\")",
+      "Bash(tasklist:*)",
+      "Bash(findstr:*)",
+      "Bash(netstat:*)",
+      "Bash(powershell.exe:*)",
+      "Bash(cmd.exe /c \"tasklist /FI \"\"IMAGENAME eq node.exe\"\" /V\")",
+      "Bash(cmd.exe /c \"tasklist | findstr /i \"\"Code\"\"\")",
+      "Bash(curl:*)",
+      "Bash(npm run dev:*)"
+    ]
+  }
+}
