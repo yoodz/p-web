@@ -126,10 +126,15 @@ const Welcome: React.FC = () => {
       size: 10,
       shape: 'circle',
     },
-    tooltip: {
-      showTitle: true,
-      showMarkers: true,
-      showCrosshairs: true,
+    interaction: {
+      tooltip: {
+        render: (_event: any, { title, items }: any) => {
+          return `<div style="padding: 8px;">
+            <div>${title}</div>
+            <div>访问次数: ${items[0]?.value}</div>
+          </div>`;
+        },
+      },
     },
     xAxis: {
       title: {
