@@ -19,6 +19,10 @@ export default {
       // 配置了这个可以从 http 代理到 https
       // 依赖 origin 的功能可能需要这个，比如 cookie
       changeOrigin: true,
+      // 增加超时时间，支持大文件上传
+      timeout: 120000, // 2 分钟
+      // 不限制请求体大小
+      bodyLimit: '50mb',
     },
   },
   /**

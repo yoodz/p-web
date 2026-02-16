@@ -58,6 +58,18 @@ export default [
     ],
   },
   {
+    name: 'image',
+    icon: 'picture',
+    path: '/image',
+    routes: [
+      {
+        name: '图片管理',
+        path: '/image/manage',
+        component: './image/Manage',
+      },
+    ],
+  },
+  {
     name: 'list.table-list',
     icon: 'table',
     path: '/list',

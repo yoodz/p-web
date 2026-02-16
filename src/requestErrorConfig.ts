@@ -28,6 +28,8 @@ interface ResponseStructure {
  * @doc https://umijs.org/docs/max/request#配置
  */
 export const errorConfig: RequestConfig = {
+  // 请求超时时间（毫秒），默认 10 秒，上传大文件需要更长时间
+  timeout: 120000, // 2 分钟
   // 错误处理： umi@3 的错误处理方案。
   errorConfig: {
     // 错误抛出

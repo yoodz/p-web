@@ -51,4 +51,6 @@ export default {
   'menu.editor.koni': '拓扑编辑器',
   'menu.rss': 'RSS管理',
   'menu.connections': '链接管理',
+  'menu.image': '图片管理',
+  'menu.image.manage': '图片列表',
 };

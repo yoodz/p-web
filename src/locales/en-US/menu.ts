@@ -51,4 +51,6 @@ export default {
   'menu.editor.koni': 'Koni Editor',
   'menu.rss': 'RSS',
   'menu.connections': 'Links',
+  'menu.image': 'Image',
+  'menu.image.manage': 'Image List',
 };
