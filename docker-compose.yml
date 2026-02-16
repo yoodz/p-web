@@ -1,0 +1,6 @@
+services:
+  app:
+    image: registry.cn-shanghai.aliyuncs.com/reuben_home/p-web:latest
+    ports:
+      - "9856:80"
+    restart: always
