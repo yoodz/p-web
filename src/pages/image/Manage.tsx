@@ -90,7 +90,7 @@ const ImageManage: React.FC = () => {
     {
       title: '操作',
       valueType: 'option',
-      width: 180,
+      width: 140,
       fixed: 'right',
       render: (_, record) => [
         <a
