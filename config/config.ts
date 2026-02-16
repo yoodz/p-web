@@ -171,6 +171,7 @@ export default defineConfig({
   utoopack: undefined,
   requestRecord: {},
   exportStatic: {},
+  esbuildMinifyIIFE: true,
   define: {
     'process.env.CI': process.env.CI,
   },
