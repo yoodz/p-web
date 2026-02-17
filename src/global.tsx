@@ -1,4 +1,3 @@
-import { useIntl } from '@umijs/max';
 import { Button, message, notification } from 'antd';
 import defaultSettings from '../config/defaultSettings';
 
@@ -23,7 +22,7 @@ const clearCache = () => {
 if (pwa) {
   // Notify user if offline now
   window.addEventListener('sw.offline', () => {
-    message.warning(useIntl().formatMessage({ id: 'app.pwa.offline' }));
+    message.warning('当前处于离线状态');
   });
 
   // Pop up a prompt on the page asking the user if they want to use the latest version
@@ -62,14 +61,12 @@ if (pwa) {
           reloadSW();
         }}
       >
-        {useIntl().formatMessage({ id: 'app.pwa.serviceworker.updated.ok' })}
+        刷新
       </Button>
     );
     notification.open({
-      title: useIntl().formatMessage({ id: 'app.pwa.serviceworker.updated' }),
-      description: useIntl().formatMessage({
-        id: 'app.pwa.serviceworker.updated.hint',
-      }),
+      title: '新版本可用',
+      description: '页面已更新，点击刷新按钮加载新版本',
       btn,
       key,
       onClose: async () => null,
