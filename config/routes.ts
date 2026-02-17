@@ -53,6 +53,12 @@ export default [
     ],
   },
   {
+    name: '访问日志',
+    icon: 'fileText',
+    path: '/requestLogs',
+    component: './requestLogs/Manage',
+  },
+  {
     path: '/',
     redirect: '/welcome',
   },
