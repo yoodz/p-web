@@ -14,6 +14,21 @@ const RequestLogsManage: React.FC = () => {
   const actionRef = useRef<ActionType>();
   const [stats, setStats] = useState<any>(null);
 
+  // 检测是否是爬虫
+  const isCrawler = (userAgent?: string): boolean => {
+    if (!userAgent) return false;
+    const crawlerKeywords = [
+      'bot', 'spider', 'crawler', 'curl', 'wget', 'python', 'java',
+      'googlebot', 'bingbot', 'slurp', 'duckduckbot', 'baiduspider',
+      'yandexbot', 'sogou', 'exabot', 'facebot', 'facebookexternalhit',
+      'twitterbot', 'linkedinbot', 'whatsapp', 'telegrambot', 'applebot',
+      'semrushbot', 'ahrefsbot', 'mj12bot', 'dotbot', 'crawl',
+      'scrapy', 'requests', 'http', 'axios', 'node-fetch'
+    ];
+    const ua = userAgent.toLowerCase();
+    return crawlerKeywords.some(keyword => ua.includes(keyword));
+  };
+
   const fetchStats = async () => {
     try {
       const response = await getRequestLogsStats();
@@ -53,6 +68,16 @@ const RequestLogsManage: React.FC = () => {
           DELETE: 'red',
         };
         return <Tag color={colorMap[record.method] || 'default'}>{record.method}</Tag>;
+      },
+    },
+    {
+      title: '是否爬虫',
+      dataIndex: 'isCrawler',
+      width: 100,
+      search: false,
+      render: (_, record) => {
+        const crawler = record.isCrawler ?? isCrawler(record.userAgent);
+        return crawler ? <Tag color="orange">爬虫</Tag> : <Tag color="green">正常</Tag>;
       },
     },
     {

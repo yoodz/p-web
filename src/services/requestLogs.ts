@@ -12,6 +12,7 @@ export interface RequestLogItem {
   userAgent: string;
   userId?: string;
   username?: string;
+  isCrawler?: boolean;
 }
 
 export interface RequestLogParams {
