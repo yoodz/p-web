@@ -96,32 +96,26 @@ const ImageManage: React.FC = () => {
         <a
           key="copy"
           onClick={async () => {
+            // 降级方案：使用传统方法（兼容性更好）
+            const textArea = document.createElement('textarea');
+            textArea.value = record.url;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-9999px';
+            textArea.style.top = '0';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
             try {
-              // 优先使用现代 Clipboard API
-              if (navigator.clipboard && navigator.clipboard.writeText) {
-                await navigator.clipboard.writeText(record.url);
+              const successful = document.execCommand('copy');
+              if (successful) {
                 message.success('链接已复制');
               } else {
-                // 降级方案：使用传统方法
-                const textArea = document.createElement('textarea');
-                textArea.value = record.url;
-                textArea.style.position = 'fixed';
-                textArea.style.left = '-9999px';
-                textArea.style.top = '0';
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                try {
-                  document.execCommand('copy');
-                  message.success('链接已复制');
-                } catch (err) {
-                  message.error('复制失败，请手动复制');
-                }
-                document.body.removeChild(textArea);
+                message.error('复制失败，请手动复制');
               }
             } catch {
               message.error('复制失败，请手动复制');
             }
+            document.body.removeChild(textArea);
           }}
         >
           复制链接
