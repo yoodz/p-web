@@ -144,12 +144,6 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({ visible, onCancel, 
     // 检查是否有待上传的图片
     const waitingItems = uploadList.filter((i) => i.status === 'waiting');
     if (waitingItems.length === 0) {
-      // 没有待上传的图片，直接关闭弹窗
-      uploadList.forEach((item) => {
-        if (item.url) URL.revokeObjectURL(item.url);
-      });
-      setUploadList([]);
-        onCancel();
       return;
     }
 
@@ -159,15 +153,6 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({ visible, onCancel, 
       await handleUpload(item);
     }
     setIsUploading(false);
-
-    // 上传完成后关闭弹窗
-    setTimeout(() => {
-      uploadList.forEach((item) => {
-        if (item.url) URL.revokeObjectURL(item.url);
-      });
-      setUploadList([]);
-        onCancel();
-    }, 500);
   };
 
   const formatSize = (size: number) => {
@@ -181,6 +166,8 @@ const ImageUploadModal: React.FC<ImageUploadModalProps> = ({ visible, onCancel, 
       title="上传图片"
       open={visible}
       onCancel={handleCancel}
+      maskClosable={false}
+      keyboard={false}
       width={900}
       destroyOnClose
       footer={null}

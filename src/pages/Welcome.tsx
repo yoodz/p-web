@@ -1,9 +1,9 @@
 import { PageContainer } from '@ant-design/pro-components';
 import { useModel, useRequest } from '@umijs/max';
-import { Card, theme } from 'antd';
+import { Card, Empty, theme } from 'antd';
 import React, { useEffect } from 'react';
 import { Line } from '@ant-design/charts';
-import { getVisitStats } from '@/services/blog';
+import { getVisitStats, type VisitStatsResponse } from '@/services/blog';
 
 /**
  * 每个单独的卡片，为了复用样式抽成了组件
@@ -89,10 +89,21 @@ const Welcome: React.FC = () => {
   const { token } = theme.useToken();
   const { initialState } = useModel('@@initialState');
 
+  const endDate = new Date();
+  const startDate = new Date(endDate);
+  startDate.setDate(startDate.getDate() - 29);
+  const formatDate = (date: Date) =>
+    `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+  const startTime = `${formatDate(startDate)} 00:00`;
+  const endTime = `${formatDate(endDate)} 23:59`;
+
   // 获取访问统计数据
-  const { data: response, loading } = useRequest(getVisitStats, {
-    manual: false,
-  });
+  const { data: response, loading } = useRequest(
+    () => getVisitStats({ startTime, endTime }),
+    {
+      manual: false,
+    },
+  );
 
   useEffect(() => {
     console.log('API Response:', response);
@@ -100,7 +111,9 @@ const Welcome: React.FC = () => {
 
   // 转换数据：API 已经返回按天聚合的数据
   const chartData = React.useMemo(() => {
-    const rawData = response || [];
+    const rawData = Array.isArray(response)
+      ? response
+      : (response as unknown as VisitStatsResponse | undefined)?.data || [];
     console.log('Raw data from API:', rawData);
 
     // 转换为图表数据格式
@@ -162,7 +175,15 @@ const Welcome: React.FC = () => {
         title="文章访问统计"
         loading={loading}
       >
-        <Line {...chartConfig} height={300} />
+        {chartData.length > 0 ? (
+          <Line {...chartConfig} height={300} />
+        ) : (
+          <Empty
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+            description="暂无访问数据"
+            style={{ padding: '64px 0' }}
+          />
+        )}
       </Card>
     </PageContainer>
   );
